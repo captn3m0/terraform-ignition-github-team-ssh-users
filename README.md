@@ -11,6 +11,8 @@ INPUT         -> -------- -> OUTPUT
 [GitHub Team] -> [Module] -> [Ignition config]
 ```
 
+See the module input and output variables at either [Terraform Registry][reg] or [MODULES.md](MODULES.md)
+
 # Usage
 
 ```hcl
@@ -37,8 +39,8 @@ data "ignition_config" {
 }
 
 provider "github" {
-  token        = "${var.github_token}"
-  organization = "your-organization-name"
+	token        = "${var.github_token}"
+	organization = "your-organization-name"
 }
 ```
 
@@ -46,3 +48,5 @@ provider "github" {
 
 Licensed under the [MIT License](https://nemo.mit-license.org/). See LICENSE file for details.
 Copyright 2019 Abhay Rana
+
+[reg]: https://registry.terraform.io/modules/captn3m0/github-team-ssh-users/ignition/
