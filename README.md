@@ -22,6 +22,8 @@ module "ignition" {
 	team_slug = "sshusers"
 }
 
+// The return value from this is a userdata blob, so you can either
+// upload it to S3 and then append the S3 URL to your userdata, like:
 resource "aws_s3_bucket_object" "s3" {
 	key     = "users.json"
 	bucket  = "ignition-bucket"
@@ -38,11 +40,25 @@ data "ignition_config" {
 	}
 }
 
+// Or alternatively, you may use the source/verification outputs:
+data "ignition_config" {
+	// Rest of your config goes here
+	systemd = []
+	// Append these users to the config
+	append {
+		source       = "${module.ignition.source}"
+		verification = "${module.ignition.verification}"
+	}
+}
+
+// You'll need to setup your GitHub provider for this to work:
 provider "github" {
 	token        = "${var.github_token}"
 	organization = "your-organization-name"
 }
 ```
+
+Or alternatively, you can
 
 # License
 
